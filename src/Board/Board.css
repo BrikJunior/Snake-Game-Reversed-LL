@@ -1,0 +1,32 @@
+.board {
+  outline: 2px solid rgb(134, 154, 189);
+  box-shadow: 0 0 20px black;
+}
+
+.row {
+  height: 35px;
+}
+
+.cell {
+  width: 35px;
+  height: 35px;
+  outline: 1px solid rgba(134, 154, 189, 0.096);
+  display: inline-block;
+  
+}
+
+.cell-green {
+  background-color: yellow;
+  border-radius: 20% ;
+}
+
+.cell-red {
+  background-color: red;
+  border-radius: 50%;
+}
+
+.cell-purple {
+  background-color: rgb(255, 0, 255);
+  border-radius: 50%;
+  size: 80%;
+}
