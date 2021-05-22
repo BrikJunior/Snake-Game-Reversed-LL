@@ -99,10 +99,6 @@ const Board = () => {
     if (!isValidDirection) return;
     const snakeWillRunIntoItself =
     getOppositeDirection(newDirection) === directionHookRef.current && snakeCellsHookRef.current.size > 1;
-    // Note: this functionality is currently broken, for the same reason that
-    // `useInterval` is needed. Specifically, the `direction` and `snakeCells`
-    // will currently never reflect their "latest version" when `handleKeydown`
-    // is called. I leave it as an exercise to the viewer to fix this :P
     if (snakeWillRunIntoItself) return;
     setDirection(newDirection);
   };
@@ -151,7 +147,6 @@ const Board = () => {
     setSnakeCells(newSnakeCells);
   };
 
-  // This function mutates newSnakeCells.
   const growSnake = newSnakeCells => {
     const growthNodeCoords = getGrowthNodeCoords(snake.tail, direction);
     if (isOutOfBounds(growthNodeCoords, board)) {
@@ -176,8 +171,7 @@ const Board = () => {
     const newDirection = getOppositeDirection(tailNextNodeDirection);
     setDirection(newDirection);
 
-    // The tail of the snake is really the head of the linked list, which
-    // is why we have to pass the snake's tail to `reverseLinkedList`.
+
     reverseLinkedList(snake.tail);
     const snakeHead = snake.head;
     snake.head = snake.tail;
@@ -187,10 +181,7 @@ const Board = () => {
   const handleFoodConsumption = newSnakeCells => {
     const maxPossibleCellValue = BOARD_SIZE * BOARD_SIZE;
     let nextFoodCell;
-    // In practice, this will never be a time-consuming operation. Even
-    // in the extreme scenario where a snake is so big that it takes up 90%
-    // of the board (nearly impossible), there would be a 10% chance of generating
-    // a valid new food cell--so an average of 10 operations: trivial.
+
     while (true) {
       nextFoodCell = randomIntFromInterval(1, maxPossibleCellValue);
       if (newSnakeCells.has(nextFoodCell) || foodCell === nextFoodCell)
